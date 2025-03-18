@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat Interface</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body>
+  <div id="chat-icon" style="color: white;background-color: #01C9A7;padding: 13px;border-radius: 50px;display: flex;align-items: center;justify-content: center;"><i id="message-icon" style="color: white;font-size: 25px;" class="fa-solid fa-message"></i><i id="chevron-icon" style="display: none;"
+      class="fa-solid fa-chevron-down"></i></div>
+  <audio id="myAudio">
+    <source src="./assets/botopen.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="audio_send">
+    <source src="assets//messageSend.mp3" type="audio/mpeg">
+
+  </audio>
+  <audio id="audio_received">
+    <source src="./assets/auidoReceived.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="bot_close">
+    <source src="./assets//botClosed.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="bot_close">
+    <source src="./assets//botClosed.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="model_sound">
+    <source src="./assets/modelOpen.mp3" type="audio/mpeg">
+  </audio>
+
+  <div id="chat-bot">
+
+    <div class="chat_top" style="border-top-left-radius: 12px; border-top-right-radius: 12px">
+      <div class="chat_top_child" style="display: flex">
+        <img src="./assets/bot.png" alt="emoji-not found here" width="56px" height="56px" style="background-color: white; border-radius: 50px" id="top_bot_img" />
+        <h2 style="color: white; margin-left: 20px; font-family: Montserrat">
+          ChatBot
+        </h2>
+        <i class="fa-solid fa-xmark" style="color: white;" id="bot_cross"></i>
+      </div>
+    </div>
+    <div id="chat-box">
+    </div>
+
+
+    <div id="user-input-container" style="position: relative">
+      <input type="text" id="user-input" placeholder="Inizia la chat." disabled="true" />
+
+      <svg id="send-btn" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#cccccc">
+        <path d="M120-160v-640l760 320-760 320Zm80-120 474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z" />
+      </svg>
+    </div>
+    <!-- card1 -->
+    <div id="card_1">
+      <div id="card1">
+        <div class="info">
+          <p>Voglio procedere con l’acquisto e autorizzo al collegamento alla farmacia.</p>
+        </div>
+        <div class="d-flex justify-content-between w-100 text-red">
+          <button id="loginBt">Log in</button>
+          <button id="signupBt">Sign up</button>
+        </div>
+      </div>
+    </div>
+    <div id="card_2">
+      <div id="card2">
+        <div class="info">
+          <p>Ok, entra nel nostro sito e parla con il tuo farmacista</p>
+        </div>
+        <div class="d-flex justify-content-between">
+          <button id="loginBtn">Log in</button>
+          <button id="signupBtn">Sign up</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="content" style="color: white; display: none;"></div>
+
+  <!-- first popup box -->
+  <div id="pop_content_parent1">
+    <div id="popup-content-parent" style="background-color: white">
+      <div style="display: flex;justify-content: center;" id="frist_scroll_bottom">
+
+        <p style="
+              font-size: 20px;
+              font-family: Fira Sans;
+              line-height: 38.4px;
+              font-weight: 500;
+              color: #36415a;
+              margin-bottom: 0px;
+            ">
+          Termini d’uso PHARMABOT 
+        </p>
+      </div>
+
+
+      <div style="font-size: 16px; margin-top: 10px">
+
+        <span class="termini_para">COSA E?</span>
+        <p style="line-height: 22px;margin-bottom: 0px;">
+          PHARMABOT è un applicativo di Intelligenza artificiale che attiva
+          una conversazione con l’utente. Capisce il linguaggio naturale,
+          pertanto è sufficiente porre domande (input) per avere risposte
+          (output) consistenti nell’indicazione dei medicinali coerenti con la
+          ricerca effettuata dall’Utente.
+        </p>
+        <p style="line-height: 22px;margin-bottom: 0px;">
+          Di fatto PHARMABOT
+          <span class="termini_para" style="line-height: 22px">opera come motore di ricerca.</span>
+          Non si devono inserire delle parole chiave, ma si possono fare
+          domande (input) in linguaggio naturale e PHARMABOT va a leggere i
+          fogli illustrativi dei farmaci e risponde (output) alla domanda.
+        </p>
+
+        <p style="line-height: 22px ;margin-bottom: 0px;">
+          <span class="termini_para">PHARMABOT NON è un consulente.</span>
+          Non va utilizzato in sostituzione di un medico o di un farmacista. 
+
+
+
+        </p>
+        <p class="" style="margin-bottom: 0px;">PHARMABOT, come già detto, è uno strumento che opera con tecnologie<span class="termini_para" style="line-height: 22px">
+            Intelligenza Artificiale.</span< /p>
+            <p style="line-height:22px;margin-bottom: 0px;">Ciò vuol dire che:</p>
+            <p style="line-height: 22px;margin-bottom: 0px;">
+              - L’elaborazione di dati da parte di un’Intelligenza Artificiale si
+              basa su meccanismi statistici che agiscono secondo logiche di
+              probabilità e non di certezza. Non è caratteristica delle
+              intelligenze artificiali produrre Output sempre precisi, ma solo
+              probabili. 
+            </p>
+            <p style="line-height: 22px;margin-bottom: 0px;">
+              - L’output elaborato da parte di un’intelligenza Artificiale dipende
+              in gran parte dalla completezza e qualità delle informazioni
+              raccolte in input.<span class="termini_para" style="line-height: 22px">
+                Pertanto eventuali carenze o inesattezze dei dati inseriti (nella
+                domanda) potranno avere notevole incidenza sugli Output generati
+                dall’Intelligenza artificiale..</span>
+              Eventuali errori o carenze nella domanda avranno quindi effetto
+              importante sull’attendibilità e correttezza dell’output >
+            </p>
+            <p style="line-height: 22px;margin-bottom: 0px;">
+              - È ad oggi impossibile evitare saltuarie Allucinazioni dei sistemi
+              di Intelligenza Artificiale. I sistemi di Intelligenza Artificiale
+              (IA), pur essendo progettati e sviluppati per fornire risultati
+              accurati e affidabili, possono occasionalmente generare output
+              inaccurati o non pertinenti, denominati appunto 'allucinazioni'.
+              Questi eventi, sebbene rari e non prevedibili con certezza, sono una
+              caratteristica intrinseca della tecnologia IA basata su algoritmi di
+              apprendimento e analisi probabilistica. Per questo motivo è sempre
+              necessario verificare la correttezza della risposta, solo
+              indicativa, consultando il foglio illustrativo del medicinale.
+            </p>
+            <p style="line-height: 22px;margin-bottom: 0px;">
+              - Alla luce di quanto sopra indicato, non è oggetto della
+              prestazione di PHARMABOT fornire mezzi per un’indicazione precisa
+              dei farmaci coerenti con la domanda, ma mettere a disposizione
+              dell’Utente uno strumento orientativo nella lettura dei fogli
+              informativi.
+            </p>
+            <p class="termini_para" style="margin-top: 18px; line-height: 22px;margin-bottom: 0px;">
+              COSA FA?
+            </p>
+            <p style="line-height: 22px; margin-bottom: 0px;">
+              PHARMABOT effettua una ricerca intelligente partendo dalla domanda
+              effettuata in linguaggio naturale dall’Utente. PHARMABOT accede ai
+              dati pubblicati (e messi a disposizione con licenza Creative Commons
+              CC-BY - https://www.aifa.gov.it/copyright ) online dall’Agenzia
+              Italiana per il Farmaco (AIFA) ed in particolare ai fogli
+              illustrativi dei farmaci ivi pubblicati. Con software di lettura
+              intelligente “legge” appunto tali fogli illustrativi e, sulla base
+              delle domande effettuate dall’Utente, seleziona (output) i
+              medicinali o i farmaci (il cui foglio illustrativo è pubblicato)
+              coerenti, indicando altresì il link al relativo foglio
+              illustrativo. 
+            </p>
+            <p style="line-height: 22px;margin-bottom: 0px;">
+              L’utente quindi può indicare nella richiesta tutto ciò che
+              verificherebbe in prima persona leggendo il foglio illustrativo,
+              quindi indicazioni, controindicazioni, patologie curate, principio
+              attivo, composizione, sintomi, allergie ecc.
+            </p>
+            <p style="line-height: 22px ;margin-bottom: 0px;">
+                Non è necessario inserire nella domanda termini tecnici dato che
+              PHARMABOT è in grado di comprendere i termini d’uso comune ed
+              abbinarli ai corrispondenti termini tecnici (per esempio epatico🡪del
+              fegato; cardiaco🡪del cuore).
+            </p>
+            <p style="line-height: 22px;margin-bottom: 0px;">
+              Quando PHARMABOT restituisce l’output, l’utente può poi contattare
+              un professionista ovvero procedere all’acquisto dei medicinali, una
+              volta diretto sullo store della singola Farmacia (store per il quale
+              si dovrà autenticare).
+            </p>
+            <p class="termini_para" style="margin-top: 18px; line-height: 22px;margin-bottom: 0px;">
+              DI CHI E’?
+            </p>
+            <p style="line-height: 22px;margin-bottom: 0px;">
+              PHARMABOT è un applicativo sviluppato da Thinkalize Global LTD, con
+              sede in…….
+            </p>
+            <p style="line-height: 22px;margin-bottom: 0px;">
+              PHARMABOT è integrato nel sito web utilizzato come ecommerce dalla
+              singola farmacia, ma viene erogato e gestito direttamente da
+              Thinkalize e interagisce con l’e-commerce solo previa autorizzazione
+              dell’utente (e interagisce solo comunicando ad esso input e output).
+              Thinkalize Global raccoglie inoltre le domande effettuate dagli
+              utenti (che prestano apposito consenso) ed i relativi output per
+              alimentare un Database proprio (si veda oltre).  Nel caso in cui
+              l’Utente chieda di esser messo in contatto con un Professionista,
+              ovvero chieda di accedere allo Store della Farmacia, Thinkalize
+              Global trasmetterà allo Store l’oputput e – se previsto dallo Store
+              – la domanda che lo ha generato, ma Thinkalize non conserverà
+              l’identificativo dell’Utente.
+            </p>
+            <p class="termini_para" style="margin-top: 18px; line-height: 22px;margin-bottom: 0px;">
+              REGOLE d’UTILIZZO
+            </p>
+            <p style="line-height: 22px;margin-bottom: 0px;">
+              PHARMABOT è un applicativo utilizzabile senza registrazione. Come
+              sopra indicato, la registrazione sarà richiesta solo dopo avere
+              optato per l’accesso allo Store della singola Farmacia o aver
+              chiesto il contatto di un professionista. In tali casi tuttavia
+              l’autenticazione che viene effettuata riguarda solo lo Store o
+              l’applicativo della farmacia. Poiché PHARMABOT è solo un sistema di
+              lettura dei fogli illustrativi, l’Utente procederà allacquisto di
+              medicinali o prodotti solo ed esclusivamente sotto la propria
+              responsabilità. L'utente dichiara quindi sin d’ora di manlevare
+              Thinkalize per qualsiasi danno derivante dall’acquisto (o non
+              acquisto) di medicinali anche effettuato (o non effettuato) a
+              seguito della consultazione di PHARMABOT.
+            </p>
+            <p class="termini_para" style="margin-top: 18px; line-height: 22px;margin-bottom: 0px;">
+              PRECAUZIONI NELL’USO DI PHARMABOT
+            </p>
+            <p style="line-height: 22px;margin-bottom: 0px;">
+              1.Consultare e interrogare PHARMABOT solo a fini informativi.
+            </p>
+            <p style="line-height: 22px;margin-bottom: 0px;">
+              2. Chiedere sempre la consulenza di un medico o di un farmacista
+              prima di procedere all’acquisto;
+            </p>
+            <p style="line-height: 22px;margin-bottom: 0px;">
+              3.Verificare, specie in caso di dubbio, la correttezza della
+              risposta consultando il foglio illustrativo dei farmaci in output e,
+              se del caso, riformulare la domanda con termini diversi per
+              verificare che output sia sempre coerente;
+            </p>
+            <p style="line-height: 22px;margin-bottom: 0px;">
+              4.Non intasare il servizio con domande inutili, volutamente errate,
+              fuorvianti ecc.;
+            </p>
+            <p style="line-height: 22px;margin-bottom: 0px;">
+              5.Poiché le domande inserite vengono raccolte in un Database (si
+              veda oltre) dello Sviluppatore, e poiché tale DB sarà utilizzato
+              dalla stessa Thinkalize ovvero messo a disposizione di terzi per
+              analisi intelligenti (domande più frequenti, temi maggiormente
+              affrontati per esempio), e poiché infine per ottenere un oputput
+              efficace NON è necessario inserire dati identificativi, è
+              assolutamente vietato inserire nome, cognome, residenza, dati fisici
+              (altezza, peso) se non approssimati. Thinkalize infatti non svolgerà
+              alcuna attività di offuscamento su tali dati.
+            </p>
+            <p class="termini_para" style="margin-top: 18px; line-height: 22px;margin-bottom: 0px;">
+              I DATI e LE INFORMAZIONI
+            </p>
+            <p style="line-height: 22px;margin-bottom: 0px;">
+              Le informazioni raccolte da PHARMABOT sono:Contenuto della domanda
+              inserita (in tal caso le informazioni sono quelle inserite
+              dall’Utente, con le accortezze del caso) e output generato.
+            </p>
+
+            <p style="line-height: 22px;margin-bottom: 0px;">
+              Successivamente Thinkalize conserva nel Database solo la domanda (ed
+              eventualmente l’output generato, il feeback dell’utente se previsto,
+              l’eventuale riformulazione della domanda nella stessa sessione
+              ecc.), mentre la stessa domanda e l’output generato sono
+              eventualmente trasmessi allo Store della Farmacia e, se previsto nei
+              Termini d’uso dello Store, salvati nell’account dell’Utente. Al
+              termine della sessione tuttavia Thinkalize non conserva dati che
+              possano abbinare input/output all’Utente.
+            </p>
+            <p class="termini_para" style="margin-top: 18px; line-height: 22px;margin-bottom: 0px;">
+              IL DATABASE, LA PROPRIETA’INDUSTRIALE ed INTELLETTUALE
+            </p>
+            <p style="line-height: 22px;margin-bottom: 0px;">
+              Le domande, l’eventuale ripetizione/modifica delle stesse, al
+              termine della sessione con PHARMABOT, sono salvati in un DataBase
+              appartenente a Thinkalize Global LTD (solo se l’utente abbia dato
+              apposito consenso).
+            </p>
+
+            <p style="line-height: 22px;margin-bottom: 0px;">
+              Thinkalize Global LTD utilizzerà tale DB per effettuare, in proprio,
+              anche tramite terzi, per conto proprio o di terzi, analisi
+              intelligenti volte a rilevare per esempio il tipo ricorrente di
+              domande, le tematiche più ricorrenti ecc.Laddove richiesto da un
+              soggetto terzo, il DB potrà esser ceduto o reso accessibile a
+              società/enti terzi per lo svolgimento delle proprie analisi
+              intelligenti o statistiche.Resta inteso che Thinkalize non
+              effettuerà, prima di tale cessione o comunicazione, alcuna attività
+              di offuscamento delle informazioni e ciascun Utente sarà
+              riconoscibile in base a tipo e numero di dati propri che ha inserito
+              nella richiesta/domanda.
+            </p>
+            <p style="line-height: 22px;margin-bottom: 0px;">
+              Salvo diverso accordo, la Farmacia titolare dello Store nel quale è
+              integrato PHARMABOT non ha accesso al Database di cui al presente
+              punto.
+            </p>
+
+            <p style="line-height: 22px;margin-bottom: 0px;">
+              Le logiche, gli algoritmi di intelligenza artificiale, i set di dati
+              utilizzati da Thinkalize sono proprietà intellettuale ed
+              industriale, e per quanto possibile segreto commerciale
+              esclusivamente appartenenti alla stessa Thinkalize.
+            </p>
+            <p style="line-height: 22px ;margin-bottom: 0px;">
+              Resta inteso che nulla è dovuto agli utenti per la creazione e
+              l’utilizzo del Database di cui al presente punto.
+            </p>
+            <span style="
+              display: flex;
+              align-items: center;
+              color: #1b5029;
+              font-size: 24px;
+              font-weight: 600;
+              font-family: Fira Sans;
+              margin-top: 20px;
+            ">Accetto
+              <input type="checkbox" class="accept_checkbox" id="first_accept_check" style="margin-left: 13px;margin-top:px ;width: 30px;height: 30px;" />
+            </span>
+            <img src="./assets/scrollBottom.png" alt="scrollBottom-notFound" id="scroll_bottom" style="position: fixed;bottom: 190px;right: 235px;color: #01C9A7;background-color: rgba(0, 0, 0, 0.3);border-radius: 50%;padding: 5px;">
+      </div>
+
+    </div>
+  </div>
+  <!--second popup box  -->
+  <div id="second_popup_parent">
+    <div id="popup-content2">
+      <div id="popup_second_child">
+        <div>
+          <p style=" font-size: 32px;
+              font-family: Fira Sans;
+              line-height: 38.4px;
+              font-weight: 500;
+              color: #36415a;
+              margin-bottom: 0px;">INFORMATIVA PRIVACY PHRMABOT</p>
+        </div>
+      </div>
+      <div class="row" style="font-size: 16px;">
+        <div style="font-size:16px;">
+
+
+          <p class="" style="margin-bottom: 0px;">1: PREMESSE</p>
+          <p style="line-height: 17px;margin-bottom: 0px;">
+            Questa informativa cercherà di spiegare chi e come tratta i dati dell'interessato (detto anche Utente), quali sono i suoi dati, e quali sono i suoi diritti e come può esercitarli. Per chiarimenti particolari, laddove l’Utente non capisca o non ritenga sufficiente
+            quanto inserito nell'informativa, si invita a scrivere al seguente indirizzo: info@thinkalize....
+          </p>
+          <p style="line-height: 17px;margin-top: 13px;margin-bottom: 0px;">
+            2.ALCUNE NOZIONI IMPORTANTI SUI DATI PERSONALI
+            <span class="termini_para" style="line-height: 17px;font-weight: 600;">Cosa si intende per dati personali?</span>
+
+
+            Dati personali sono tutte le informazioni che si riferiscono ad una persona fisica identificabile.
+            Il testo di un messaggio o di una domanda, se rivela informazioni relative ad una persona
+            , è un dato personale. Sono quindi dati personali le domande rivolte a
+            PHARMABOT. Anzi, non sono solo dati personali, ma sono dati particolari
+            perché svelano o possono svelare malattie di una persona. Sono dati personal
+            i quindi anche i medicinali scelti, o quelli semplicemente consultati. Sono dati personali
+            i sintomi indicati, come pure le intolleranze. Insomma: tutto quel che parla di una persona è dato personale.
+          </p>
+          <p style="line-height: 17px;margin-bottom:22px ">
+
+            Poiché è importante ridurre il numero e il tipo di dati trattati, si raccomanda di non inserire informazioni non necessarie, e tali da rendere identificabile il richiedente. Inoltre si raccomanda di usare sempre una certa approssimazione: per esempio su altezza, peso, residenza se
+            necessari per una migliore ricerca.
+
+          </p>
+          <p style="line-height: 17px;margin-bottom:18px ">
+            <span class="termini_para" style="line-height: 17px;font-weight: 600">
+              Cosa significa trattare i dati?</span> La definizione giuridica di trattamento comprende qualunque operazione o complesso di operazioni concernenti la raccolta, la registrazione, l'organizzazione, la conservazione, la consultazione, l'elaborazione, la modificazione, la selezione,
+            l'estrazione, il raffronto, l'utilizzo, l'interconnessione, il blocco, la comunicazione, la diffusione, la cancellazione e la distruzione di dati. Praticamente quindi tutto quel che si può fare con i dati dell'utente è trattamento. Già quindi raccogliere o leggere i dati per esempio,
+            ossia consultarli, come anche solo conservarli è un trattamento.Sono quindi trattamento dei dati non solo la raccolta (con la domanda) e la conservazione, ma anche l’analisi intelligente, la creazione di un Database
+            , la comunicazione alla Farmacia.
+          </p>
+          <p style="line-height: 17px;margin-bottom:18px ">
+            <span class="termini_para" style="line-height: 17px;font-weight: 600">
+              Perché sono importanti per l'interessato?
+            </span>I dati dicono chi è l'interessato e cosa fa. Sono suoi, quindi, proprio in quanto “suoi”, sono importanti ed è chiaro anche che in quanto “suoi” l’interessato ha il diritto di decidere se lasciarli trattare a terzi – compreso il presente PHARMABOT -  e di sapere in che modo ciò
+            viene fatto.
+
+          </p>
+
+          <p style="line-height: 17px;margin-bottom: 18px">
+
+            Perché sono importanti per l'interessato? I dati dicono chi è l'interessato e cosa fa. Sono suoi, quindi,
+            proprio in quanto “suoi”, sono importanti ed è chiaro anche che in quanto “suoi” l’interessato ha il diritto di decidere
+            se lasciarli trattare a terzi – compreso il presente PHARMABOT -  e di sapere in che modo ciò viene fatto.
+
+          </p>
+          <p style="line-height: 17px;margin-bottom: 0px;">3: CHI TRATTA I DATI :</p>
+          <p style="line-height: 17px;margin-bottom: 0px;">
+            Titolare del trattamento è il soggetto che assume le decisioni su come trattare i dati, quindi – tra l'altro – su quali precauzioni prendere per proteggerli, su dove alloggiarli (se in server o cloud ecc.), su quali dati chiedere all'utente, su quali elaborare e per quale scopo, su quali
+            e a chi cederli, come gestire i rapporti e i diritti degli utenti, su chi scegliere come collaboratore, responsabile o semplice incaricato per trattare i dati, su quali istruzioni impartire ai collaboratori ecc. Quindi, atteso che il titolare del trattamento dei dati è molto importante,
+            sappia l'utente che si tratta di:
+
+          </p>
+          <p style="line-height: 17px;margin-bottom: 0px;">
+            Thinkalize Global LTD
+          </p>
+          <p class="font-weight:600;margin-bottom: 0px;">
+            ………
+          </p>
+          <p style="line-height: 17px;margin-bottom: 0px;">
+            Mail……
+          </p>
+          <p style="color: red;margin-bottom: 0px;">
+            DPO:
+          </p>
+          <p style="line-height: 17px;margin-bottom: 10px">
+            Rappresentante in Italia: 
+          </p>
+          <p style="line-height: 17px;margin-bottom: 14px">
+            Poi, per quanto concerne eventuali funzioni accessorie, Thinkalize si può avvalere di soggetti interni autorizzati al trattamento (detti anche incaricati) o soggetti esterni per lo più come responsabili del trattamento, come titolari autonomi o contitolari, a seconda dei casi. 
+          </p>
+          <p style="line-height: 17px;margin-top: 15px;">
+
+            3/a: A CHI VENGONO COMUNICATI I DATI (o A CHI VIENE CONSENTITO ACCESSO AGLI STESSI)
+          </p>
+          <p style="line-height: 17px;margin-bottom: 0px;">
+
+            I dati vengono comunicati a soggetti interni al Titolare (i dipendenti) che collaborano nella gestione esecutiva ed amministrativa del servizio.  
+          </p>
+          <p style=" line-height: 17px;margin-bottom: 0px;">
+
+            Inoltre i dati sono comunicati al servizio di hosting, eventuali sub fornitori e collaboratori.
+          </p>
+          <p style="line-height: 17px;margin-bottom: 0px;">
+            I dati del Database possono essere comunicati a terzi (se prestato consenso).
+          </p>
+          <p style="line-height: 17px;margin-bottom: 0px;">
+            Infine i dati sono comunicati allo Store della Farmacia se l’Utente attiva la apposita funzione di collegamento al termine della sessione. In tal caso sono comunicati alla Farmacia quale titolare autonomo.
+
+          </p>
+          <p style="line-height: 17px;margin-bottom: 0px;">
+            È importante sapere che Thinkalize può gestire e dominare solo i dati conservati e trattati nell'ambito del proprio sistema: dati ceduti o comunicati a terzi saranno, nel modo e nel quanto, autonomamente trattati dai terzi cui vengono comunicati secondo proprie politiche di privacy che
+            dovranno esser rilasciate entro un mese dalla ricezione dei dati. In ogni caso, laddove Thinkalize cessi il trattamento dei dati personali di un utente, darà comunicazione della cessazione anche ai soggetti cui tali dati siano stati comunicati, ma non può garantire la cessazione del
+            trattamento da parte di questi.
+
+          </p>
+          <p style="line-height: 17px;margin-top: 15px;margin-bottom: 0px;">
+            4: DOVE LI TRATTA
+          </p>
+          <p style="line-height: 17px;margin-bottom: 0px;">
+            Thinkalize tratta i dati personali degli Utenti presso server situati in zona UE.
+
+          </p>
+          <p style="margin-bottom:15px;line-height: 17px;">Le attività di sviluppo, manutenzione del sistema, e le attività di analisi intelligente e di creazione e gestione del Database (che è su server in UE) sono effettuate da personale sito in Pakistan (da personale dipendente da Azzurritech).
+          </p>
+          <p style="line-height: 17px;margin-bottom: 0px;">
+            5: QUALI DATI VENGONO TRATTATI
+          </p>
+          <p style="line-height: 17px;margin-bottom: 0px;">
+            In base alla qualità significativa dei dati si possono individuare:
+          </p>
+          <p style="line-height: 17px;margin-bottom: 0px;">
+            - Dati di contenuto (input): come più volte accennato il contenuto di una domanda rivolta a PHARMABOT rivela o può rivelare patologie, sintomi, intolleranze, caratteristiche fisiche o fisiologiche della persona ecc.;
+
+          </p>
+          <p style="line-height: 17px;margin-bottom: 0px;">
+            - Dati identificativi: nome, cognome ecc. <span style="font-weight: 600">ATTENZIONE</span>: tali dati NON sono necessari per le domande da rivolgere a PHARMABOT e non vanno mai inseriti.
+          </p>
+          <p style="line-height: 17px;margin-bottom: 0px;">
+            - Dati di Output: sono i farmaci o medicinali indicati come coerenti da PHARMABOT.
+          </p>
+          <p style="line-height: 17px;margin-bottom: 0px;">
+            - Dati identificativi USER ID: nel caso di comunicazione della domanda e dell’output allo Store della Farmacia, input e output sono collegati temporaneamente all’account dell’Utente sullo Store della farmacia stessa. Tale dato di abbinamento non viene conservato da Thinkalize oltre il
+            tempo necessario per il collegamento allo Store della Farmacia.
+
+          </p>
+          <p style="line-height: 17px;margin-bottom: 0px;">
+            - Dati di contatto: email o altro laddove sia l’utente a contattare Thinkalize per chiedere chiarimenti, esercitare diritti ecc.
+          </p>
+
+          <p style="line-height: 17px;margin-bottom: 0px;">
+            - Provenienza geografica (regione), età (approssimata di 5 anni), peso (approssimato di 5 chili), altezza (approssimata di 5 cm) laddove richiesta, suggerita o comunque inserita dall’Utente.
+
+          </p>
+          <p style=" line-height: 17px;margin-bottom: 0px;">
+
+            6: PER QUALI SCOPI VENGONO TRATTATI, E INDICAZIONE DELLA BASE GIURIDICA E DURATA DI CONSERVAZIONE.
+          </p>
+          <p style="line-height: 17px;margin-bottom: 0px;">
+            Le domande, l’eventuale ripetizione/modifica delle stesse, al termine
+            della sessione con PHARMABOT, sono salvati in un DataBase appartenente
+            a Thinkalize Global LTD (solo se l’utente abbia dato apposito
+            consenso).
+          </p>
+
+          <p style="line-height: 17px;margin-bottom: 0px;">
+            Thinkalize tratta i dati degli utenti per le seguenti finalità:
+          </p>
+          <p style="line-height: 17px;font-weight: 600;margin-bottom: 0px;">
+            1. Risposta (output) a richieste (input) inviate dall’utente:
+
+          </p>
+
+          <p style="line-height: 17px;font-weight: 600;margin-bottom: 0px;">
+            PHARMABOT effettua una ricerca intelligente partendo dalla domanda effettuata in linguaggio naturale dall’Utente. </p>
+
+
+          <p style="line-height: 17px;margin-bottom: 0px;"> Base giuridica: esecuzione della prestazione richiesta dall'utente nella comunicazione, e consenso dell’interessato. ATTENZIONE: il consenso è sempre revocabile, tuttavia la revoca non ha effetto se dichiarata dopo l’inserimento e l’invio
+            della domanda. In ogni caso, se non si attivano il collegamento allo Store della Farmacia e non si presta il consenso alla comunicazione dei dati al Database di Thinkalize, la chiusura della sessione comporta la cessazione del trattamento. </p>
+          </p>
+          <p style="line-height: 17px;margin-bottom: 0px;">.Durata: Input e Output sono conservati da Thinkalize fino al termine della sessione di Chat. - Input  e Output sono conservati con tecniche di Pseudonimizzazione nel Database (si veda oltre) del Dati trattati: di input,
+            output.Obbligatorietà del trattamento: l’utilizzo di PHARMABOT è facoltativo. 
+          </p>
+          <p style="line-height: 17px;margin-bottom: 0px;">Poi:</p>
+          <p style="line-height: 17px;margin-bottom: 0px;"> - Input e Output sono comunicati allo Store della Farmacia se l’Utente attiva tale funzione;</p>
+          <p style="line-height: 17px;margin-bottom: 0px;">- Input  e Output sono conservati con tecniche di Pseudonimizzazione nel Database (si veda oltre) del</p>
+          <p style="line-height: 17px;margin-bottom: 0px;">Titolare Thinkalize.</p>
+          <p style="line-height: 17px;margin-bottom: 0px;">Dati trattati: di input,output. </p>
+          <p style="line-height: 17px;margin-bottom: 0px;">Obbligatorietà del trattamento: l’utilizzo di PHARMABOT è facoltativo. </p>
+          <p><span style="font-weight: 600;margin-bottom: 0px;">2. Comunicazione allo STORE:</span> Nel caso in cui l’utente intenda accedere allo Store, input e output saranno comunicati alla Farmacia e salvati nell’account dell’Utente.Base giuridica: consenso dell’Utente espresso tramite richiesta
+            di collegamento allo store; ATTENZIONE: il consenso è revocabile, ma la revoca non ha effetto concreto dopo la comunicazione allo Store. In tal caso l’Utente dovrà chiedere la cancellazione dei dati alla Farmacia</p>
+
+          <p style="line-height: 17px;margin-bottom: 0px;">Durata: la comunicazione è immediata. I dati restano poi nell’account dell’Utente sullo store della farmacia fino a cancellazione dallo stesso effettuata.Dati trattati: identificativo (e account dello store della Farmacia), input, output;
+          </p>
+          <p style="margin-bottom: 0px;"><span style="font-weight: 600;margin-bottom: 0px;">
+              3. Creazione database:</span>Le domande, l’eventuale ripetizione/modifica delle stesse nella medesima sessione al termine della sessione con PHARMABOT, sono salvati in un DataBase appartenente a Thinkalize Global LTD. Thikalize Global LTD utilizzerà tale DB per effettuare, in proprio,
+            tramite terzi, per conto proprio o di terzi, analisi intelligenti volte a rilevare per esempio il tipo ricorrente di domande, le tematiche più ricorrenti, ovvero rilevare output statistici ecc. Laddove richiesto da un soggetto terzo, il DB potrà esser ceduto o reso accessibile a
+            società/enti terzi per lo svolgimento delle proprie analisi intelligenti o statistiche previa pseudonimizzazione dei dati.</p>
+          <p style="line-height: 17px;margin-bottom: 0px;">Base giuridica: consenso dell’interessato. ATTENZIONE: il consenso è revocabile. Tuttavia, poiché Thinkalize effettua attività di pseudonimizzazione volta a ridurre il più possibile l’identificazione dell’Utente, potrà accadere che lo stesso
+            non sia più identificabile e pertanto non sia possibile revocare il consenso prestato.Durata: fino a richiesta di eliminazione (vedi quando sopra detto circa la revoca del consenso e quanto oltre in tema di cancellazione dei dati) mediante invio di email a </p>
+
+          <p style="line-height: 17px;margin-bottom: 0px;">Dati trattati: input, output.</p>
+          <p style="line-height: 17px;margin-bottom: 0px;">
+            7: COME VENGONO CONFERITI I DATI</p>
+          <p style="line-height: 17px;margin-bottom: 0px;">I dati vengono conferiti direttamente dall’Utente mediante inserimento della richiesta. Il dato in output è invece una elaborazione fatta dal sistema.
+          </p>
+          <p style="line-height: 17px;margin-bottom: 0px;">8: COME IL SERVIZIO “CONTATTERÀ” L’UTENTE</p>
+          <p style="line-height: 17px;margin-bottom: 0px;">Thinkalize dialogherà con l’Utente nei seguenti modi:</p>
+          <p style="line-height: 17px;margin-bottom: 0px;">.Risposte (automatizzate) in chat durante la sessione;</p>
+          <p style="line-height: 17px;margin-bottom: 17px;">.risposte ad email inviate dall’Utente;</p>
+          <p style="line-height: 17px;margin-bottom: 0px;">
+            9: QUALI SONO I DIRITTI DEGLI UTENTI</p>
+          <p style="line-height: 17px;margin-bottom: 0px;">Gli Utenti sono beneficiari di una serie di diritti.</p>
+          <p style="line-height: 17px;margin-bottom: 0px;">Diritti di informazione circa:</p>
+
+          <p style="line-height: 17px;margin-bottom:0px;">
+            • Categorie di dati vengono trattati (vedi punto n. 2 e 5);</p>
+          <p style="line-height: 17px;margin-bottom: 0px;">
+            • Origine dei dati, ossia sapere da dove il servizio ha tratto i suoi dati (vedi punto n. 7);</p>
+          <p style="line-height: 17px;margin-bottom: 0px;">
+            • Finalità del trattamento dei dati, ossia per quali scopi i dati vengono trattati (vedi punto n. 6);</p>
+          <p style="margin-bottom: 0px;line-height: 17px;">
+            • Estremi del titolare e di eventuali responsabili del trattamento  e del Rappresentante(vedi punto n. 3);</p>
+          <p style="margin-bottom: 0px;margin-top: 0px;line-height: 17px;">•Soggetti cui vengono comunicati i dati (vedi punto n. 3/a);</p>
+          <p style="margin-bottom: 0px;line-height: 17px;">•Tempo di conservazione e trattamento dei dati (vedi punto n. 6)</p>
+          <p style="line-height: 17px;margin-bottom: 0px;">
+            • Diritto di esperire reclamo innanzi al garante privacy mediante accesso al seguente link: https://www.garanteprivacy.it/i-miei-diritti</p>
+          <p style="margin-bottom: 0px;">
+            • Esistenza o meno di processo di profilazione;</p>
+          <p style="line-height: 17px;margin-bottom: 0px;">
+            • Base giuridica del trattamento (vedi punto n. 6);</p>
+          <p style="line-height: 17px;margin-top: 18px;margin-bottom: 0px;">
+            Poi ci sono diritti non di semplice informazione ma operativi. Essi sono di vario genere. In sintesi:</p>
+          <p style="line-height: 17px;margin-bottom: 0px;"> • L'interessato ha diritto di aver copia dei dati che ha fornito.  Tuttavia la copia dei dati non sempre è possibile. Può accadere infatti che, come sopra evidenziato, l’interessato non sia identificabile e pertanto non sia possibile
+            abbinare al richiedente il dato di cui si chiede copia.</p>
+
+          <p style="line-height: 17px;margin-bottom: 0px;">• Se i dati personali sono inesatti o incompleti l'interessato può chiedere di rettificarli o completarli, fornendo indicazioni in tal senso. Se il Titolare deve verificare l'esattezza dei dati contestati dall'interessato, questi può nel
+            mentre ottenere la limitazione dei dati contestati (limitazione significa che i dati vengono soltanto conservati e non ne viene fatto alcun altro trattamento se non con uno specifico consenso dell'interessato o se servono per esercitare o difendere un diritto in sede giudiziaria). Si
+            rappresenta che, fermo quanto sopra circa l’impossibilità di reidentificazione del singolo, è facoltà dell’Utente modificare i dati inseriti rettificandoli nella conversazione in chat.
+          </p>
+          <p style="line-height: 17px;margin-bottom: 0px;">• Se i dati personali non sono più necessari per gli scopi per i quali sono stati raccolti o altrimenti trattati l'interessato ne può chiedere la cancellazione. Se però i dati servono all'interessato per esercitare un proprio diritto in sede
+            giudiziaria, ne può chiedere la limitazione (ossia la sola conservazione). Anche tale diritto trova i limiti sopra evidenziati derivanti dalle difficoltà di identificazione del richiedente.
+          </p>
+          <p style="line-height: 17px;margin-bottom: 0px;">• Se il trattamento è illecito perché i dati sono trattati in assenza di consenso, interesse legittimo da parte del Titolare, contratto per l'esecuzione del quale il trattamento stesso è necessario, obbligo legale di trattamento da parte del
+            Titolare, l'interessato può chiederne la cancellazione o la limitazione.
+          </p>
+          <p style="line-height: 17px;margin-top: 18px;margin-bottom: 0px;">
+            10: COME LI PUÒ ESERCITARE</p>
+          <p style="line-height: 17px;margin-bottom: 0px;">Procedura per l'esercizio dei diritti: I diritti dell’Utente possono esser esercitati inviando una mail a info@........</p>
+          <p style="line-height: 17px;margin-bottom: 0px;">Il Titolare deve rispondere entro trenta giorni (che possono esser prorogati di altri due mesi, ma il Titolare in questo caso deve dare avviso motivato del ritardo all'utente).
+
+            Il Titolare può rifiutare, se ne ha motivo, di dar seguito alla richiesta dell'utente (rifiuto che deve esser comunicato all'utente entro un mese) solo in caso di richieste manifestamente infondate o ripetitive. Deve dare in tal caso risposta motivata. In ogni caso l'utente può
+            rivolgersi al “Garante Privacy” (si veda link sotto riportato) o al Giudice.</p>
+
+
+          <p style="line-height: 17px;margin-bottom: 0px;">Il Titolare deve rispondere utilizzando lo stesso canale (mail, telefono ecc) utilizzato dall'utente per la richiesta, a meno che l'utente stesso non chieda una risposta per via diversa. In caso di richiesta proveniente da indirizzo email
+            diverso da quello indicato nell’account, il richiedente dovrà provare di esser l’interessato. 
+          </p>
+          <p style="line-height: 17px;margin-bottom: 0px;">
+            Il Titolare, laddove nutra dubbi circa l'identità della persona che avanza la richiesta o esercita uno dei diritti che vengono di seguito elencati, può chiedere ulteriori informazioni per confermare l'identità del richiedente. In caso di richiesta proveniente da indirizzo email diverso
+            da quello indicato nell’account, il richiedente dovrà provare di esser l’interessato. </p>
+          <p style="line-height: 17px;margin-top: 18px;margin-bottom: 0px;">
+            Le richieste e le risposte sono gratuite, salvo che siano ripetitive. In tale ultimo caso il Titolare può addebitare i costi vivi che affronta per la risposta (quindi costi di personale, costi materiali, ecc).</p>
+
+          <p style="line-height: 17px">In ogni caso l'interessato può rivolgersi all'autorità Garante (https://www.garanteprivacy.it/i-miei-diritti) o alla Autorità Giurisdizionale competente per l'esercizio dei propri diritti.</p>
+          <p style="line-height: 17px;margin-bottom: 0px;">11: IPOTESI DI DATA BREACH</p>
+          <p style="line-height: 17px;margin-bottom: 0px;">In caso si dovessero verificare, rispetto ai dati degli Utenti, uno o più dei seguenti eventi: accesso, sottrazione, perdita, distruzione, divulgazione, modifica non autorizzati (c.d. Data breach) Thinkalize, ferme restando le misure
+            tecniche urgenti da porre in essere per bloccare (per quanto possibile) l'evento e per ridurne gli effetti dannosi si impegna a:</p>
+
+          <p style="line-height: 17px;margin-bottom: 0px;">
+            - ripristinare quanto prima il servizio in modo efficiente, recuperando i dati disponibili dall'ultimo backup utile effettuato se necessario;</p>
+
+
+          <p style="line-height: 17px;margin-bottom: 0px;">- informare gli Utenti, direttamente se le circostanze lo permettono ovvero genericamente (mediante avviso sull'home del sito web o mediante comunicazione inviata a tutti gli utenti, compresi quelli per i quali eventualmente non ci sono
+            stati eventi sui dati) del tipo di evento, del tempo in cui si è verificato, delle misure adottate (senza entrare nel dettaglio al fine di non agevolare eventuali nuovi attacchi) per ridurre i danni e per evitar nuovi analoghi eventi, nonché delle misure ed accorgimenti che l'utente
+            dovrebbe – da parte sua - porre in essere per ridurre le probabilità di nuovi eventi e limitare le conseguenze di quelli già verificatisi.
+          </p>
+
+
+
+
+
+          <!-- 
+<p style="line-height: 17px"> -->
+          <span style="
+              display: flex;
+              align-items: center;
+              color: #1b5029;
+              font-size: 24px;
+              font-weight: 600;
+              font-family: Fira Sans;
+              margin-top: 20px;
+            ">Accetto
+            <input type="checkbox" class="accept_checkbox" id="second_accept_check" style="margin-left: 13px;margin-top:px ;width: 30px;height: 30px;" />
+          </span>
+          <img src="./assets/scrollBottom.png" alt="scrollBottom-notFound" id="scroll_bottom_second" style="position: fixed;bottom: 190px;right: 235px;color: #01C9A7;background-color: rgba(0, 0, 0, 0.3);border-radius: 50%;padding: 5px;">
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- third popup box -->
+
+  <div id="third_popup_parent">
+    <div id="pop_content_parent3">
+
+      <div>
+        <p style="font-size: 15px;font-weight: 500;line-height: 38.4px;font-family: Fira Sans;">Scusaci, ma ti dobbiamo dare due istruzioni sintetiche (se non ti bastano chiedi pure):</p>
+      </div>
+
+      <div style="margin-bottom: 52px;font-size: 12px;font-weight: 400;font-family: Fira Sans;">
+        <div>
+
+
+
+
+
+
+
+          <p style="line-height: 22px;margin-bottom:0px">
+            1.Il Bot legge in maniera automatizzata i fogli illustrativi dei medicinali
+            pubblicati sul sito dell’Agenzia Italiana per il Farmaco (che concede l’uso
+            delle informazioni con licenza CC-BY);
+          </p>
+          <p style="line-height: 22px;margin-bottom:0px">
+
+
+
+            2.Il Bot non fa consulenza, ma
+            semplicemente opera come motore di ricerca: in base alle informazioni inserite
+            dall’utente il Bot legge i fogli illustrativi e risponde; .
+          </p>
+
+          <p style="line-height: 22px;margin-bottom: 0px;">
+            3.Il Bot non è un
+            medico: NON è prudente acquistare i medicinali o definire terapie solo sulla
+            base della risposta del Bot;
+
+
+          </p>
+          <p style="line-height: 22px;margin-bottom: 0px;">
+            4.Il Bot opera con tecnologie di Intelligenza
+            Artificiale, che possono dare talvolta errori, anche gravi (allucinazioni). Si
+            consiglia pertanto di verificare sempre la correttezza della risposta resa dal
+            Bot.</p>
+          <p style="line-height: 22px;margin-bottom: 0px;">
+            5.Il Bot comprende il linguaggio naturale. Si devono usare però espressioni
+            corrette, in lingua italiana e frasi semplici;
+          </p>
+          <p style="line-height: 22px;margin-bottom:0px">
+
+            6.Non sono necessari riferimenti
+            che permettano di identificare l’utente, come nome, cognome ecc. Si prega di
+            evitare l’inserimento di informazioni che permettano di identificare il
+            richiedente, come per esempio peso preciso se non necessario, altezza ecc. [per
+            la lista dei dati che possono consentire l’identificazione vedi link];
+
+          </p>
+          <p style="line-height: 22px;margin-bottom:0px">
+            7.Il Bot
+            raccoglie le domande fatte dagli utenti che hanno prestato il consenso per
+            alimentare un Database dello sviluppatore (Thinkalize LTD – Informativa
+            privacy).</p>
+          <span style="
+              display: flex;
+              align-items: center; 
+              color: #1b5029;
+              font-size: 24px;
+              font-weight: 600;
+              font-family: Fira Sans;
+              margin-top: 20px;
+            ">Accetto
+            <input type="checkbox" class="accept_checkbox" id="third_accept_check" style="margin-left: 13px;margin-top:px ;width: 30px;height: 30px;" />
+          </span>
+
+          <!--card 2  -->
+
+
+          <img src="./assets/scrollBottom.png" alt="scrollBottom-notFound" id="scroll_bottom_third" style="position: fixed;bottom: 190px;right: 235px;color: #01C9A7;background-color: rgba(0, 0, 0, 0.3);border-radius: 50%;padding: 5px;">
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- model for the signup and verify otp -->
+  <div id="model">
+
+  </div>
+
+  <!-- signup model  -->
+
+  <form id="login_form">
+    <div id="form_container">
+      <div class="user_input">
+        <label class="label_input">First Name:</label>
+        <input type="name" id="f_name" placeholder="First Name" class="input_color" required>
+      </div>
+
+      <div class="user_input">
+        <label class="label_input">Email:</label>
+        <input type="name" id="email" placeholder="Email" class="input_color" required>
+      </div>
+      <div class="user_input">
+        <label class="label_input">Phone Number:</label>
+        <input type="tel" id="phone" placeholder="Ph_Number" class="input_color" required>
+      </div>
+      <div class="user_input">
+        <label class="label_input">Password:</label>
+        <input type="password" id="password" placeholder="Password" class="input_color" required>
+      </div>
+
+      <div>
+        <button type="submit" id="Next_otp_button" style="width: 100%;text-align: center;background-color: #01C9A7;color: white;">Next</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- form for OTP -->
+  <div id="otp_page">
+    <form id="otp_form">
+      <div class="otp_form_body">
+        <div class="otp_verified_message">
+          <h5 style="color: white;">Your mobile number is verified!</h5>
+        </div>
+        <div class="otp_input_section">
+          <h5>OTP is send to yout mobile number</h5>
+          <input type="number" placeholder="Enter your OTP" id="otp" name="otp" class="otp_input">
+          <input type="text" placeholder="Enter your number" name="phone" class="otp_input">
+          <button id="verify_otp_button">Verify</button>
+        </div>
+      </div>
+
+
+    </form>
+  </div>
+  <!--login form-->
+  <div id="model_login">
+    <i class="fa-solid fa-xmark" style="color: white;" id="model_login_cross"></i>
+  </div>
+
+  <form id="login_form_login">
+    <div id="form_container">
+      <div class="user_input">
+        <label class="label_input">Email:</label>
+        <input type="email" placeholder="Email" class="input_color" required>
+      </div>
+
+      <div class="user_input">
+        <label class="label_input">Password:</label>
+        <input type="password" placeholder="Password" class="input_color" required>
+      </div>
+
+      <div>
+        <button id="Next_otp_button" style="width: 100%;text-align: center;background-color: #01C9A7;color: white;padding: 5px;font-weight: bold;">Submit</button>
+      </div>
+    </div>
+  </form>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>
